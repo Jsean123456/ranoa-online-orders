@@ -6,7 +6,38 @@
     <title>Ranoa Online Orders</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-         </style>
+        </style>
+    <script>
+        function calculateTotal() {
+            const wholeChickenPrice = 250;
+            const sagingPrice = 20;
+            const wholeChickenQuantity = parseInt(document.getElementById('whole-chicken-quantity').value) || 0;
+            const sagingQuantity = parseInt(document.getElementById('saging-quantity').value) || 0;
+
+            const totalPayment = (wholeChickenPrice * wholeChickenQuantity) + (sagingPrice * sagingQuantity);
+            const totalPaymentMessage = `You have a total of ₱${totalPayment}. Please prepare your ₱${totalPayment} cash. Thank You!`;
+
+            document.getElementById('total-payment').innerText = totalPaymentMessage;
+        }
+
+        function appendOrderDetails(event) {
+            event.preventDefault();
+            const wholeChickenQuantity = parseInt(document.getElementById('whole-chicken-quantity').value) || 0;
+            const sagingQuantity = parseInt(document.getElementById('saging-quantity').value) || 0;
+            const totalPayment = (250 * wholeChickenQuantity) + (20 * sagingQuantity);
+
+            const orderDetails = `Whole Chicken Quantity: ${wholeChickenQuantity}\nSaging Quantity: ${sagingQuantity}\nTotal Payment: ₱${totalPayment}`;
+            document.getElementById('order-details').value += `\n\n${orderDetails}`;
+
+            event.target.submit();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('whole-chicken-quantity').addEventListener('input', calculateTotal);
+            document.getElementById('saging-quantity').addEventListener('input', calculateTotal);
+            document.querySelector('form').addEventListener('submit', appendOrderDetails);
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -22,7 +53,7 @@
         </nav>
     </header>
     <section id="home">
-        <h2>Welcome to Ranoa Order Online site</h2>
+        <h2>Welcome to Ranoa Orders Online</h2>
         <p>Order our products online and get them delivered to you!!!</p>
     </section>
     <section id="menu">
@@ -39,6 +70,7 @@
             <label for="saging-quantity">Quantity:</label>
             <input type="number" id="saging-quantity" name="saging-quantity" min="1" value="1">
         </div>
+        <p id="total-payment"></p>
     </section>
     <section id="about">
         <h2>About Us</h2>
@@ -67,14 +99,3 @@
     </footer>
 </body>
 </html>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
